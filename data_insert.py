@@ -1,4 +1,5 @@
 import psycopg2
+from time import time
 
 #Establishing the connection
 conn = psycopg2.connect(
@@ -11,7 +12,7 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 # Preparing SQL queries to INSERT a record into the database.
-cursor.execute('''INSERT INTO currency(price) VALUES (9000)''')
+cursor.execute('''INSERT INTO currency(price, time) VALUES (0, %s)''', [time()*1000])
 
 # Commit your changes in the database
 conn.commit()

@@ -12,7 +12,8 @@ cursor.execute("DROP TABLE IF EXISTS currency")
 
 #Creating table as per requirement
 sql ='''CREATE TABLE currency(
-   price FLOAT NOT NULL
+   price FLOAT NOT NULL,
+   time FLOAT NOT NULL
 )'''
 
 cursor.execute(sql)

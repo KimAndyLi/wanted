@@ -1,32 +1,64 @@
-{% extends "dy0.html" %}
-{% block body %}
-<script type="text/javascript">
-var intervalID = setInterval(update_values,1000);
+<!DOCTYPE html>
+<html lang="en">
 
-  function update_values() {
-        $.getJSON($SCRIPT_ROOT + '/_stuff',
-               
-      function(data) {
-        $('#result').text(data.result);
-        console.log(data)
-      });
-      
-    };
-   
-    
-    
-    function stopTextColor() {
-      clearInterval(intervalID);
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <title>Document</title>
+</head>
+
+<body>
+  <div style="width: 50%; height: 50%;">
+    <canvas id="myChart" width="100" height="100"></canvas>
+  </div>
+
+  <script>
+
+    const addData = (chart, time, data) => {
+      chart.data.labels.push(time);
+      chart.data.datasets[0].data.push(data)
+      chart.update();
     }
-    
-</script>
-<body onload="update_values();">
-<h1>Dynamic Update</h1>
-<p>
-    <span id="result">?</span>
-<script>
-document.getElementById("result").innerHTML;
-</script>
 
-	</body>
-{% endblock %}
+    const start = async () => {
+      const response = await fetch('/init')
+      const initValue = await response.json()
+      const labels = initValue[0];
+      const initData = initValue[1]
+
+      const data = {
+        labels: labels,
+        datasets: [{
+          label: initValue[2],
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(255, 99, 132)',
+          data: initData
+        }]
+      };
+
+      const config = {
+        type: 'line',
+        data: data,
+        options: {}
+      };
+
+    
+      console.log(labels, initData);
+
+      const myChart = new Chart(document.getElementById('myChart'), config);
+
+      setInterval(async () => {
+        const response = await fetch('/data');
+        const [time, value] = await response.json();
+        addData(myChart, time, value)
+     }, 2000)
+    }
+  
+    start();
+   
+  </script>
+</body>
+
+</html>

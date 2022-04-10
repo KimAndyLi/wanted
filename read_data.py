@@ -20,16 +20,9 @@ result = cursor.fetchone();
 
 #Fetching all rows from the table
 result = cursor.fetchall();
-# print(result[-1][0])
-# value = float(result[-1][0])
-# print(type(value))
 print(result)
 print(type(result))
-# print(type(result))
-# for i in result:
-#     value = float(i[0])
-#     print(value)
-#     print(type(value))
+
 
 #Commit your changes in the database
 conn.commit()
