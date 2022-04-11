@@ -8,12 +8,14 @@ conn = psycopg2.connect(
 cursor = conn.cursor()
 
 #Doping EMPLOYEE table if already exists.
-cursor.execute("DROP TABLE IF EXISTS currency")
+cursor.execute("DROP TABLE IF EXISTS prices")
 
 #Creating table as per requirement
-sql ='''CREATE TABLE currency(
-   price FLOAT NOT NULL,
-   time FLOAT NOT NULL
+sql ='''CREATE TABLE prices(
+   time FLOAT NOT NULL,
+   rub_usd FLOAT NOT NULL,
+   rub_eur FLOAT NOT NULL,
+   rub_gbp FLOAT NOT NULL
 )'''
 
 cursor.execute(sql)

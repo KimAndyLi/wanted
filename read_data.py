@@ -12,7 +12,7 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 #Retrieving data
-cursor.execute('''SELECT * from currency''')
+cursor.execute('''SELECT * from prices''')
 
 #Fetching 1st row from the table
 result = cursor.fetchone();

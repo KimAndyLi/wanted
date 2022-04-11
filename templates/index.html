@@ -17,18 +17,34 @@
 </head>
 
 <body>
-  <div class="dropdown">
-    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-      Cureencies
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <a class="dropdown-item" href="#">RUB/USD</a>
-      <a class="dropdown-item" href="#">RUB/EUR</a>
-      <a class="dropdown-item" href="#">RUB/GBP</a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+    <span class="navbar-brand mb-0 h1">TradingPhew</span>
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Currency
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+        
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/USD">
+        </form>
+
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/EUR">
+        </form>
+
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/GBP">
+        </form>
+
+      </div>
     </div>
-  </div>
-  
-  <div style="width: 50%; height: 50%;">
+
+  </nav>
+
+  <div style="width: 'auto'; margin: 0 auto;">
     <canvas id="myChart" width="100" height="100"></canvas>
   </div>
 
@@ -40,18 +56,25 @@
       chart.update();
     }
 
+    
+    // function click_function(){
+    // document.getElementsByName("rub_usd")
+
     const start = async () => {
       const response = await fetch('/init')
       const initValue = await response.json()
       const labels = initValue[0];
       const initData = initValue[1]
 
+    
       const data = {
         labels: labels,
         datasets: [{
           label: initValue[2],
+          // backgroundColor: 'rgb(255, 99, 132)',
           backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgb(255, 99, 132)',
+          // borderColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgb(0, 0, 0)',
           data: initData
         }]
       };
@@ -59,11 +82,34 @@
       const config = {
         type: 'line',
         data: data,
-        options: {}
+        options: {
+          responsive: true,
+    interaction: {
+      intersect: false,
+    },
+    scales: {
+      x: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Time'
+        }
+      },
+      y: {
+        display: true,
+        title: {
+          display: true,
+          text: 'Price'
+        },
+        suggestedMin: 0,
+        suggestedMax: 20
+      }
+    }
+        }
       };
 
     
-      console.log(labels, initData);
+      // console.log(labels, initData);
 
       const myChart = new Chart(document.getElementById('myChart'), config);
 
@@ -75,7 +121,8 @@
     }
   
     start();
-   
+
+  // }
   </script>
 </body>
 

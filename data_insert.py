@@ -12,7 +12,7 @@ conn.autocommit = True
 cursor = conn.cursor()
 
 # Preparing SQL queries to INSERT a record into the database.
-cursor.execute('''INSERT INTO currency(price, time) VALUES (0, %s)''', [time()*1000])
+cursor.execute('''INSERT INTO prices(time, rub_usd, rub_eur, rub_gbp) VALUES (%s, 0, 0, 0)''', [time()*1000])
 
 # Commit your changes in the database
 conn.commit()
