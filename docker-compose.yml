@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  postgres:
+    image: postgres:13.3
+    environment:
+      POSTGRES_DB: "currency"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "7153862"
+    ports:
+      - "5432:5432"
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+  redis:
+    image: "redis:alpine"

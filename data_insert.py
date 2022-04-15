@@ -1,5 +1,5 @@
 import psycopg2
-from time import time
+from time import time, strftime
 
 #Establishing the connection
 conn = psycopg2.connect(
@@ -11,8 +11,11 @@ conn.autocommit = True
 #Creating a cursor object using the cursor() method
 cursor = conn.cursor()
 
+currentTime = strftime("%H:%M:%S")
+# print(currentTime)
+
 # Preparing SQL queries to INSERT a record into the database.
-cursor.execute('''INSERT INTO prices(time, rub_usd, rub_eur, rub_gbp) VALUES (%s, 0, 0, 0)''', [time()*1000])
+cursor.execute('''INSERT INTO prices(time, rub_usd, rub_eur, rub_gbp, rub_btc, rub_eth, rub_sol, rub_jpy, rub_aud, rub_cad, rub_cny) VALUES (%s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)''', [currentTime])
 
 # Commit your changes in the database
 conn.commit()

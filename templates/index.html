@@ -39,12 +39,40 @@
           <input type="submit" class="dropdown-item" name="currency" value="RUB/GBP">
         </form>
 
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/BTC">
+        </form>
+
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/ETH">
+        </form>
+
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/SOL">
+        </form>
+
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/JPY">
+        </form>
+
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/AUD">
+        </form>
+
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/CAD">
+        </form>
+
+        <form method="POST">
+          <input type="submit" class="dropdown-item" name="currency" value="RUB/CNY">
+        </form>
+
       </div>
     </div>
 
   </nav>
 
-  <div style="width: 'auto'; margin: 0 auto;">
+  <div style="width: 500px; margin: 0 auto;">
     <canvas id="myChart" width="100" height="100"></canvas>
   </div>
 
@@ -84,8 +112,8 @@
         data: data,
         options: {
           responsive: true,
-    interaction: {
-      intersect: false,
+      interaction: {
+      intersect: true,
     },
     scales: {
       x: {
@@ -117,7 +145,7 @@
         const response = await fetch('/data');
         const [time, value] = await response.json();
         addData(myChart, time, value)
-     }, 2000)
+     }, 1000)
     }
   
     start();
